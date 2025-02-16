@@ -1,0 +1,31 @@
+.link {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: grey;
+    text-decoration: none;
+}
+
+.link_desktop {
+    padding-top: 0.25rem;
+    padding-bottom: .25rem;
+    color: grey;
+    text-decoration: none;
+}
+
+.link_desktop:hover {
+    text-decoration: underline;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.desktop_footer {
+    display: none; /* Hidden by default */
+}
+
+@media (min-width: 900px) {
+    .desktop_footer {
+        display: block; /* Visible on screens 600px and larger */
+    }
+}
