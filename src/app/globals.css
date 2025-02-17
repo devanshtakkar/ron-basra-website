@@ -10,4 +10,26 @@ body{
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+}
+
+.heading_3r {
+  font-size: 32px;
+  font-weight: normal;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.heading_2r {
+  font-size: 24px;
+  font-weight: normal;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.heading_4r {
+  font-size: 48px;
+  font-weight: normal;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
