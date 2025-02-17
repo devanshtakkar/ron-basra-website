@@ -1,0 +1,21 @@
+/* styles.css */
+.buttonStyle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #dddddd;
+    background-color: transparent;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.buttonStyle:hover {
+    border-color: #000;
+}
+
+.arrow {
+    font-size: 18px;
+    color: #000;
+}

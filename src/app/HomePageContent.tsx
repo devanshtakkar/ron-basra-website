@@ -58,7 +58,7 @@ export default function HomePageContent() {
             </Box>
           </Grid2>
         </Grid2>
-        <Grid2 container spacing={10} marginY={10}>
+        <Grid2 container spacing={10} marginY={10} alignItems={"center"}>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <Box
               sx={{
@@ -103,7 +103,7 @@ export default function HomePageContent() {
               sx={{
                 position: "relative",
                 width: "100%",
-                minHeight: "80vh",
+                minHeight: { xs: "300px", md: "80vh" },
               }}
             >
               <Image
