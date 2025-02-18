@@ -33,3 +33,13 @@ body{
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+.mono_font_link {
+  font-family: "Courier New", Courier, monospace;
+  text-decoration: none;
+  color: black;
+}
+
+.mono_font_link:hover {
+  text-decoration: underline;
+}

@@ -43,8 +43,8 @@ export default function FeaturedListings() {
           </Grid2>
           <FeaturedSwiper isMobile={isMobile} />
           <Box sx={{ height: "2rem" }}></Box>
-          <Link href="/residential-portfolio" className="mono_font_link">
-            SEE ALL RESIDENTIAL PROJECTS
+          <Link href="" className="mono_font_link">
+            SEE ALL LISTINGS
           </Link>
           <Box sx={{ height: "3rem" }}></Box>
         </Container>
