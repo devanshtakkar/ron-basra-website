@@ -52,8 +52,8 @@ export async function GET(request: Request) {
     // Add search term filter
     if (searchTerm) {
       where.OR = [
-        { title: { contains: searchTerm, mode: 'insensitive' } },
-        { description: { contains: searchTerm, mode: 'insensitive' } },
+        { title: { contains: searchTerm } },
+        { description: { contains: searchTerm } },
       ];
     }
 

@@ -18,26 +18,8 @@ import {
   Alert
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
-interface Listing {
-  id: string;
-  title: string;
-  description: string;
-  mainSummary: {
-    price?: number;
-    bedrooms?: number;
-    bathrooms?: number;
-    squareFootage?: number;
-    propertyType?: string;
-  };
-  photos: {
-    downloadUrl: string;
-  }[];
-  listingDetails: {
-    listingInfo?: Record<string, string>;
-  };
-  price: number;
-}
+import ListingCard from './ListingCard';
+import { Listing } from './types/Listing';
 
 export default function MyListings() {
   const theme = useTheme();
@@ -206,48 +188,21 @@ export default function MyListings() {
       {/* Listings Grid */}
       <Grid container spacing={3}>
         {listings.map((listing) => (
-          <Grid item key={listing.id} xs={12} sm={6} md={4} lg={3}>
-            <Card 
-              sx={{ 
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'scale(1.02)',
-                  cursor: 'pointer'
-                }
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="200"
-                image={listing.photos[0]?.downloadUrl || '/images/placeholder.jpg'}
-                alt={listing.title}
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h6" gutterBottom>
-                  {listing.title}
-                </Typography>
-                <Typography variant="h5" color="primary" gutterBottom>
-                  ${listing?.price?.toLocaleString()}
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
-                  <Typography variant="body2">
-                    {listing.mainSummary.bedrooms} beds
-                  </Typography>
-                  <Typography variant="body2">
-                    {listing.mainSummary.bathrooms} baths
-                  </Typography>
-                  <Typography variant="body2">
-                    {listing.mainSummary.squareFootage} sqft
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                  {listing.description.substring(0, 100)}...
-                </Typography>
-              </CardContent>
-            </Card>
+          <Grid item key={listing.id} xs={12} md={4}>
+            <ListingCard
+              image={listing.photos[0]?.downloadUrl || '/images/placeholder.jpg'}
+              title={listing.title}
+              status={listing.mainSummary.status}
+              href={`/properties/my-listings/${listing.id}`}
+              description={listing.description}
+              year_built={listing.mainSummary.yearBuilt?.toString()}
+              lot_size={listing.generalInfo?.['Total area']}
+              propertyType={listing.mainSummary.propertyType}
+              mls={listing.mainSummary.MLS}
+              bedrooms={listing.mainSummary.bedrooms}
+              bathrooms={listing.mainSummary.bathrooms}
+              price={listing.price || 0}
+            />
           </Grid>
         ))}
       </Grid>

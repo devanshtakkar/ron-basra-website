@@ -1,0 +1,11 @@
+.details_headings {
+    font-size: 1rem;
+    color: gray;
+    font-family: "Roboto Flex";
+    font-weight: 500;
+}
+
+.remove_decoration {
+    text-decoration: none;
+    color: black;
+}
