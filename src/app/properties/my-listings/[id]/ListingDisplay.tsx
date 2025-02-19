@@ -25,6 +25,7 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
   // Split title into address and title parts
   const [address, title] = listing.title.split(":");
 
+  
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
       <Box height={80} />
