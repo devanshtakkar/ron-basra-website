@@ -28,24 +28,24 @@ export async function GET(request: Request) {
     // Add property type filter if not 'all'
     if (propertyType && propertyType !== 'all') {
       where.mainSummary = {
-        path: ['propertyType'],
-        equals: propertyType,
+        path: '$.propertyType',
+        string_contains: propertyType,
       };
     }
 
     // Add bedrooms filter if not 'all'
     if (bedrooms && bedrooms !== 'all') {
       where.mainSummary = {
-        path: ['bedrooms'],
-        gte: parseInt(bedrooms),
+        path: '$.bedrooms',
+        equals: parseInt(bedrooms),
       };
     }
 
     // Add bathrooms filter if not 'all'
     if (bathrooms && bathrooms !== 'all') {
       where.mainSummary = {
-        path: ['bathrooms'],
-        gte: parseInt(bathrooms),
+        path: '$.bathrooms',
+        equals: parseInt(bathrooms),
       };
     }
 
