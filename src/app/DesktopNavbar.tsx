@@ -99,6 +99,7 @@ export default function DesktopNavbar() {
                       endIcon={<KeyboardArrowDownIcon />}
                       sx={{ 
                         color: 'white',
+                        fontSize: '1rem',
                         textTransform: 'none',
                         '&:hover': {
                           backgroundColor: 'transparent',

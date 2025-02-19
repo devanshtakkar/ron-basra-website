@@ -1,16 +1,25 @@
 interface Room {
+  id: string;
   level: string;
   type: string;
-  size: {
-    width: string;
-    length: string;
-  };
+  width: string;
+  length: string;
+  listingId: string;
 }
 
 interface Bathroom {
+  id: string;
   level: string;
   ensuite: boolean;
   pieces: number;
+  listingId: string;
+}
+
+interface Image {
+  id: string;
+  downloadUrl: string;
+  savedPath: string;
+  listingId: string;
 }
 
 interface ListingDetails {
@@ -21,8 +30,9 @@ interface ListingDetails {
 interface WideInfo extends Record<string, string> {}
 
 interface Listing {
-  title: string; // <title>
-  description: string; // <div class="mrp-listing-description">
+  id: string;
+  title: string;
+  description: string;
   mainSummary: {
     status: string;
     propertyType: string;
@@ -30,12 +40,8 @@ interface Listing {
     bedrooms: number;
     bathrooms: number;
     yearBuilt: number;
-  }; //divs inside of <section class="mrp-details-main-summary"> that contain dl and dt and dd
-  photos: {
-    downloadUrl: string;
-    savedPath: string;
-    listingId: string;
-  }[]; //full-data-src attribute inside of <img class="mrp-photo-thumb">
+  };
+  photos: Image[];
   generalInfo?: Record<string, string>;
   coordinates: {
     lat: number;
@@ -46,7 +52,7 @@ interface Listing {
   listingDetails?: ListingDetails;
   wideInfo?: WideInfo;
   price?: number;
-  id: string;
+  urlId: string;
 }
 
-export type { Listing, ListingDetails, Room, Bathroom, WideInfo };
+export type { Listing, ListingDetails, Room, Bathroom, WideInfo, Image };

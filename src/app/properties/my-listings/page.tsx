@@ -10,7 +10,6 @@ import {
   FormControl,
   InputLabel,
   Slider,
-  Paper,
   Alert,
   Breadcrumbs,
   RadioGroup,
@@ -113,7 +112,7 @@ export default function MyListings() {
         </Link>
       </Breadcrumbs>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} mb={10}>
         <Grid size={{ xs: 12, md: 6 }}>
           <h1 className="heading_4r">My Listings</h1>
           <FormControl component="fieldset">
@@ -142,13 +141,13 @@ export default function MyListings() {
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <p>
-            We create homes to own or rent in some of the most vibrant markets
-            across B.C. Whether it's a condo or rental property, all of our
-            spaces place humans at the centre and are designed to inspire
-            better living.
+            As a trusted real estate agent, I offer a diverse range of properties
+            across B.C.'s most sought-after markets. Whether you're looking for a
+            condo or a rental property, my listings are designed to meet your needs
+            and enhance your lifestyle.
           </p>
           
-          <Box sx={{ mt: 3, p: 3}}>
+          <Box sx={{ mt: 3}}>
             <Grid container spacing={3}>
               <Grid size={{ xs: 12, sm: 6, md: 3 }}>
                 <TextField
