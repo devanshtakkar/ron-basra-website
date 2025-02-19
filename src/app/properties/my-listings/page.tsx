@@ -88,10 +88,8 @@ export default function MyListings() {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Box height={80}></Box>
-      
-      <Breadcrumbs>
+    <Container maxWidth="xl">      
+      <Breadcrumbs sx={{ mt: 4 }}>
         <Link
           href="/"
           style={{
@@ -102,9 +100,8 @@ export default function MyListings() {
           HOME
         </Link>
         <Link
-          href="/residential-portfolio"
+          href="/properties/my-listings"
           style={{
-            color: "grey",
             textDecoration: "none",
           }}
         >

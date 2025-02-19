@@ -71,7 +71,7 @@ export default async function PropertyListing({
 
   if (error) {
     return (
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ mb: 10 }}>
         <Alert severity="error">{error}</Alert>
       </Container>
     );
@@ -79,7 +79,7 @@ export default async function PropertyListing({
 
   if (!listing) {
     return (
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ mb: 10 }}>
         <Alert severity="error">Listing not found</Alert>
       </Container>
     );
