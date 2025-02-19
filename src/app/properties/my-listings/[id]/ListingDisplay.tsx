@@ -200,7 +200,6 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
           padding: 24px;
           border-radius: 12px;
           background: #fff;
-          // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .featured-image {
@@ -246,6 +245,16 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
           }
           .right-content {
             order: 1;
+            padding: 0;
+            border-radius: 0;
+          }
+          .featured-image {
+            margin: 0;
+            height: 400px;
+            border-radius: 0;
+          }
+          .property-details {
+            padding: 24px;
           }
         }
       `}</style>
