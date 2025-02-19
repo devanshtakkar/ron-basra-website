@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ListingUrl{
+  id String @id @default(uuid())
+  url String @unique
+  lisitng Listing?
+  createdAt DateTime?
+}
+
+model Room {
+  id        String  @id @default(uuid())
+  level     String
+  type      String
+  width     String
+  length    String
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id])
+}
+
+model Bathroom {
+  id        String  @id @default(uuid())
+  level     String
+  ensuite   Boolean
+  pieces    Int
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id])
+}
+
+model Listing{
+  id String @id @default(uuid())
+  title String
+  description String
+  mainSummary Json
+  photos Images[]
+  generalInfo Json?
+  coordinates Json
+  rooms Room[]
+  bathrooms Bathroom[]
+  listingDetails Json?
+  wideInfo Json?
+  url ListingUrl @relation(fields: [urlId], references: [id])
+  urlId String @unique
+  price Int?
+}
+
+model Images{
+  id String @id @default(uuid())
+  downloadUrl String
+  savedPath String
+  listingId String
+  listing Listing @relation(fields: [listingId], references: [id])
+
+  @@unique([listingId, downloadUrl])
+}

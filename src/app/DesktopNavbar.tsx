@@ -61,7 +61,6 @@ export default function DesktopNavbar() {
       height={70}
       sx={{
         backgroundColor: "#232938",
-        borderBottom: "1px solid #e0e0e0",
       }}
     >
       <Container maxWidth="xl">
