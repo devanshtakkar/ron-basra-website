@@ -25,30 +25,38 @@ async function getListing(id: string) {
     // Parse all JSON fields and cast to Listing type
     const parsedListing = {
       ...response,
-      mainSummary: typeof response.mainSummary === 'string' 
-        ? JSON.parse(response.mainSummary)
-        : response.mainSummary,
-      generalInfo: typeof response.generalInfo === 'string'
-        ? JSON.parse(response.generalInfo)
-        : response.generalInfo,
-      coordinates: typeof response.coordinates === 'string'
-        ? JSON.parse(response.coordinates)
-        : response.coordinates,
-      listingDetails: typeof response.listingDetails === 'string'
-        ? JSON.parse(response.listingDetails)
-        : response.listingDetails,
-      wideInfo: typeof response.wideInfo === 'string'
-        ? JSON.parse(response.wideInfo)
-        : response.wideInfo,
-      photos: Array.isArray(response.photos) ? response.photos : []
+      mainSummary:
+        typeof response.mainSummary === "string"
+          ? JSON.parse(response.mainSummary)
+          : response.mainSummary,
+      generalInfo:
+        typeof response.generalInfo === "string"
+          ? JSON.parse(response.generalInfo)
+          : response.generalInfo,
+      coordinates:
+        typeof response.coordinates === "string"
+          ? JSON.parse(response.coordinates)
+          : response.coordinates,
+      listingDetails:
+        typeof response.listingDetails === "string"
+          ? JSON.parse(response.listingDetails)
+          : response.listingDetails,
+      wideInfo:
+        typeof response.wideInfo === "string"
+          ? JSON.parse(response.wideInfo)
+          : response.wideInfo,
+      photos: Array.isArray(response.photos) ? response.photos : [],
     } as unknown as Listing;
 
     return { listing: parsedListing, error: null };
   } catch (error) {
     console.error("Error fetching listing:", error);
-    return { 
-      listing: null, 
-      error: error instanceof Error ? error.message : "An error occurred while fetching the listing"
+    return {
+      listing: null,
+      error:
+        error instanceof Error
+          ? error.message
+          : "An error occurred while fetching the listing",
     };
   }
 }
@@ -56,9 +64,10 @@ async function getListing(id: string) {
 export default async function PropertyListing({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { listing, error } = await getListing(params.id);
+  const { id } = await params;
+  const { listing, error } = await getListing(id);
 
   if (error) {
     return (
@@ -77,4 +86,4 @@ export default async function PropertyListing({
   }
 
   return <ListingDisplay listing={listing} />;
-} 
+}
