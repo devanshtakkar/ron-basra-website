@@ -14,6 +14,7 @@ import SellIcon from "@mui/icons-material/Sell";
 import TagIcon from "@mui/icons-material/Tag";
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
+import NeighbourhoodMap from "./NeighbourMap";
 
 interface ListingDisplayProps {
   listing: Listing;
@@ -470,6 +471,7 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
           </Grid>
         )}
       </Grid>
+      <NeighbourhoodMap coordinates={listing.coordinates} />
     </Container>
   );
 }
