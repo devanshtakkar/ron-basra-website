@@ -1,21 +1,17 @@
 "use client";
 
-import {
-  Container,
-  Typography,
-  Breadcrumbs,
-} from "@mui/material";
+import { Container, Typography, Breadcrumbs, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
 import { Listing } from "../types/Listing";
 import ImageGallery from "./ImageGallery";
 import "@/app/css/curved_button.css";
-import BedIcon from '@mui/icons-material/Bed';
-import BathtubIcon from '@mui/icons-material/Bathtub';
-import HomeIcon from '@mui/icons-material/Home';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import SellIcon from '@mui/icons-material/Sell';
-import TagIcon from '@mui/icons-material/Tag';
+import BedIcon from "@mui/icons-material/Bed";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import HomeIcon from "@mui/icons-material/Home";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import SellIcon from "@mui/icons-material/Sell";
+import TagIcon from "@mui/icons-material/Tag";
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
@@ -27,11 +23,12 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
   // Split title into address and title parts
   const [address, title] = listing.title.split(":");
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
 
-  const truncatedDescription = isMobile && !showFullDescription
-    ? `${listing.description.slice(0, 150)}...`
-    : listing.description;
+  const truncatedDescription =
+    isMobile && !showFullDescription
+      ? `${listing.description.slice(0, 150)}...`
+      : listing.description;
 
   console.log(listing);
 
@@ -64,34 +61,50 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
           <Typography variant="h3" component="h1" sx={{ mb: 2 }}>
             {title}
           </Typography>
-          
+
           <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid size={{xs: 6}}>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Grid size={{ xs: 6 }}>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <TagIcon /> MLS Number
               </Typography>
               <Typography variant="body1" sx={{ mb: 2 }}>
                 {listing.mainSummary.MLS}
               </Typography>
             </Grid>
-            <Grid size={{xs: 6}}>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Grid size={{ xs: 6 }}>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <HomeIcon /> Property Type
               </Typography>
               <Typography variant="body1" sx={{ mb: 2 }}>
                 {listing.mainSummary.propertyType}
               </Typography>
             </Grid>
-            <Grid size={{xs: 6}}>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Grid size={{ xs: 6 }}>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <BedIcon /> Bedrooms
               </Typography>
               <Typography variant="body1" sx={{ mb: 2 }}>
                 {listing.mainSummary.bedrooms}
               </Typography>
             </Grid>
-            <Grid size={{xs: 6}}>
-              <Typography variant="subtitle1" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Grid size={{ xs: 6 }}>
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
                 <BathtubIcon /> Bathrooms
               </Typography>
               <Typography variant="body1" sx={{ mb: 2 }}>
@@ -106,49 +119,55 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
               <button
                 onClick={() => setShowFullDescription(!showFullDescription)}
                 style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#1976d2',
+                  background: "none",
+                  border: "none",
+                  color: "#1976d2",
                   padding: 0,
-                  font: 'inherit',
-                  cursor: 'pointer',
-                  marginLeft: '4px',
+                  font: "inherit",
+                  cursor: "pointer",
+                  marginLeft: "4px",
                 }}
               >
-                {showFullDescription ? 'Read less' : 'Read more...'}
+                {showFullDescription ? "Read less" : "Read more..."}
               </button>
             )}
           </Typography>
 
-          <button className="btn_white">
-            Contact Now
-          </button>
+          <button className="btn_white">Contact Now</button>
         </div>
         <div className="listing-grid-item right-content">
           {listing.photos && listing.photos.length > 0 && (
             <div className="featured-image">
-              <img 
-                src={listing.photos[1].downloadUrl} 
+              <img
+                src={listing.photos[1].downloadUrl}
                 alt={`Featured image of ${address}`}
               />
             </div>
           )}
-          
+
           <div className="property-details">
             <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
               {address}
             </Typography>
             <Grid container spacing={2}>
-              <Grid size={{xs: 6}}>
-                <Typography variant="subtitle2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Grid size={{ xs: 6 }}>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                >
                   <CalendarTodayIcon fontSize="small" /> Year Built
                 </Typography>
                 <Typography variant="body2" sx={{ mb: 2 }}>
                   {listing.mainSummary.yearBuilt}
                 </Typography>
               </Grid>
-              <Grid size={{xs: 6}}>
-                <Typography variant="subtitle2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Grid size={{ xs: 6 }}>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                >
                   <SellIcon fontSize="small" /> Status
                 </Typography>
                 <Typography variant="body2" sx={{ mb: 2 }}>
@@ -156,7 +175,7 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
                 </Typography>
               </Grid>
               {listing.price && (
-                <Grid size={{xs: 12}}>
+                <Grid size={{ xs: 12 }}>
                   <Typography variant="subtitle2" color="text.secondary">
                     Price
                   </Typography>
@@ -231,6 +250,217 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
         }
       `}</style>
       <ImageGallery photos={listing.photos} />
+      <Grid container spacing={4} sx={{ mt: 4 }}>
+        <Grid size={{xs: 12, md: 5}}>
+          {listing.generalInfo && Object.keys(listing.generalInfo).length > 0 && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+                General Information
+              </Typography>
+              <Box sx={{ 
+                backgroundColor: 'white', 
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <tbody>
+                    {Object.entries(listing.generalInfo).map(([key, value]) => (
+                      <tr key={key} style={{ 
+                        borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                      }}>
+                        <td style={{ 
+                          padding: '12px 16px',
+                          backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                          width: '40%',
+                          fontWeight: 500
+                        }}>
+                          {key}
+                        </td>
+                        <td style={{ padding: '12px 16px' }}>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Box>
+            </Box>
+          )}
+
+          {listing.listingDetails?.listingInfo && Object.keys(listing.listingDetails.listingInfo).length > 0 && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+                Listing Information
+              </Typography>
+              <Box sx={{ 
+                backgroundColor: 'white', 
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <tbody>
+                    {Object.entries(listing.listingDetails.listingInfo).map(([key, value]) => (
+                      <tr key={key} style={{ 
+                        borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                      }}>
+                        <td style={{ 
+                          padding: '12px 16px',
+                          backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                          width: '40%',
+                          fontWeight: 500
+                        }}>
+                          {key}
+                        </td>
+                        <td style={{ padding: '12px 16px' }}>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Box>
+            </Box>
+          )}
+        </Grid>
+
+        <Grid size={{xs: 12, md: 7}}>
+          {listing.rooms && listing.rooms.length > 0 && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+                Rooms
+              </Typography>
+              <Box sx={{ 
+                backgroundColor: 'white', 
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ 
+                      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                    }}>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Level</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Type</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Dimensions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {listing.rooms.map((room) => (
+                      <tr key={room.id} style={{ 
+                        borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                      }}>
+                        <td style={{ padding: '12px 16px' }}>{room.level}</td>
+                        <td style={{ padding: '12px 16px' }}>{room.type}</td>
+                        <td style={{ padding: '12px 16px' }}>{`${room.width} x ${room.length}`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Box>
+            </Box>
+          )}
+
+          {listing.bathrooms && listing.bathrooms.length > 0 && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+                Bathrooms
+              </Typography>
+              <Box sx={{ 
+                backgroundColor: 'white', 
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ 
+                      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.02)'
+                    }}>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Level</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Pieces</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>Ensuite</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {listing.bathrooms.map((bathroom) => (
+                      <tr key={bathroom.id} style={{ 
+                        borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                      }}>
+                        <td style={{ padding: '12px 16px' }}>{bathroom.level}</td>
+                        <td style={{ padding: '12px 16px' }}>{bathroom.pieces}</td>
+                        <td style={{ padding: '12px 16px' }}>{bathroom.ensuite ? 'Yes' : 'No'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Box>
+            </Box>
+          )}
+
+          {listing.listingDetails?.otherDetails && Object.keys(listing.listingDetails.otherDetails).length > 0 && (
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+                Other Details
+              </Typography>
+              <Box sx={{ 
+                backgroundColor: 'white', 
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <tbody>
+                    {Object.entries(listing.listingDetails.otherDetails).map(([key, value]) => (
+                      <tr key={key} style={{ 
+                        borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                      }}>
+                        <td style={{ 
+                          padding: '12px 16px',
+                          backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                          width: '40%',
+                          fontWeight: 500
+                        }}>
+                          {key}
+                        </td>
+                        <td style={{ padding: '12px 16px' }}>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </Box>
+            </Box>
+          )}
+        </Grid>
+
+        {listing.wideInfo && Object.keys(listing.wideInfo).length > 0 && (
+          <Grid size={{xs: 12}}>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+              Additional Information
+            </Typography>
+            <Box sx={{ 
+              backgroundColor: 'white', 
+              borderRadius: '12px',
+              overflow: 'hidden'
+            }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <tbody>
+                  {Object.entries(listing.wideInfo).map(([key, value]) => (
+                    <tr key={key} style={{ 
+                      borderBottom: '1px solid rgba(224, 224, 224, 1)'
+                    }}>
+                      <td style={{ 
+                        padding: '12px 16px',
+                        backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                        width: '40%',
+                        fontWeight: 500
+                      }}>
+                        {key}
+                      </td>
+                      <td style={{ padding: '12px 16px' }}>{value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Box>
+          </Grid>
+        )}
+      </Grid>
     </Container>
   );
 }
