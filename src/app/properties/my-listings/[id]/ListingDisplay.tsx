@@ -16,6 +16,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SellIcon from '@mui/icons-material/Sell';
 import TagIcon from '@mui/icons-material/Tag';
+import { useState } from "react";
+import { useMediaQuery } from "@mui/material";
 
 interface ListingDisplayProps {
   listing: Listing;
@@ -24,6 +26,13 @@ interface ListingDisplayProps {
 export default function ListingDisplay({ listing }: ListingDisplayProps) {
   // Split title into address and title parts
   const [address, title] = listing.title.split(":");
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  const truncatedDescription = isMobile && !showFullDescription
+    ? `${listing.description.slice(0, 150)}...`
+    : listing.description;
+
   console.log(listing);
 
   return (
@@ -92,7 +101,23 @@ export default function ListingDisplay({ listing }: ListingDisplayProps) {
           </Grid>
 
           <Typography variant="body1" sx={{ mb: 4 }}>
-            {listing.description}
+            {truncatedDescription}
+            {isMobile && listing.description.length > 150 && (
+              <button
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#1976d2',
+                  padding: 0,
+                  font: 'inherit',
+                  cursor: 'pointer',
+                  marginLeft: '4px',
+                }}
+              >
+                {showFullDescription ? 'Read less' : 'Read more...'}
+              </button>
+            )}
           </Typography>
 
           <button className="btn_white">
