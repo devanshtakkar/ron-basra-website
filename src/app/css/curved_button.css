@@ -1,0 +1,27 @@
+.btn_white {
+    /* Basic button layout */
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+
+    /* Button styling */
+    border: 1px solid black;
+    border-radius: 9999px; /* Creates fully rounded corners */
+    text-align: center;
+    text-decoration: none;
+    background-color: white;
+
+    /* Typography */
+    color: black;
+    white-space: nowrap;
+
+    /* Transition for hover effect */
+    transition: color 0.15s, background-color 0.15s;
+}
+
+.btn_white:hover {
+    background-color: black;
+    color: white;
+}
