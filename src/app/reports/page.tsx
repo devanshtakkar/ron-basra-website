@@ -7,45 +7,23 @@ import {
   Box, 
   Card, 
   CardContent, 
-  Button,
   useTheme,
   useMediaQuery,
   Grid,
   Paper,
   styled,
-  ButtonProps
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArticleIcon from '@mui/icons-material/Article';
 import { Listing } from '../properties/my-listings/types/Listing';
 import ListingCard from '../properties/my-listings/ListingCard';
+import CurvedButton from '../components/CurvedButton';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   marginBottom: theme.spacing(4),
   borderRadius: theme.spacing(2),
   boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-}));
-
-interface CurvedButtonProps extends ButtonProps {
-  component?: React.ElementType;
-  href?: string;
-  download?: boolean;
-}
-
-const CurvedButton = styled(Button)<CurvedButtonProps>(({ theme }) => ({
-  borderRadius: '50px',
-  padding: '10px 20px',
-  textTransform: 'none',
-  backgroundColor: '#fff',
-  color: theme.palette.text.primary,
-  border: '1px solid rgba(0, 0, 0, 0.2)',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    backgroundColor: theme.palette.primary.main,
-    color: '#fff',
-    border: '1px solid transparent',
-  },
 }));
 
 interface Report {

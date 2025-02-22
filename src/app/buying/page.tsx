@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { Listing } from '../properties/my-listings/types/Listing';
 import ListingCard from '../properties/my-listings/ListingCard';
+import CurvedButton from '../components/CurvedButton';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -222,6 +224,14 @@ export default function BuyingInfo() {
                   </Grid>
                 ))}
               </Grid>
+              <Box sx={{ mt: 4, textAlign: 'center' }}>
+                <CurvedButton
+                  href="/properties/my-listings"
+                  endIcon={<ArrowForwardIcon />}
+                >
+                  View All Listings
+                </CurvedButton>
+              </Box>
             </StyledPaper>
           </Box>
         </Grid>
