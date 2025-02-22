@@ -1,24 +1,23 @@
 "use client"
 import React from "react";
-import { Box, Grid, Card, CardContent, Typography, useTheme } from "@mui/material";
+import { Box, Container, Typography, useTheme } from "@mui/material";
 import { styled } from "@mui/system";
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
-// Styled components for custom styling
-const TestimonialCard = styled(Card)(({ theme }) => ({
-  borderRadius: "12px",
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-  
-  backgroundColor: theme.palette.background.paper,
-  padding: theme.spacing(3),
-  textAlign: "center",
-  border: `1px solid ${theme.palette.divider}`,
+const TestimonialContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  padding: theme.spacing(2),
+  marginBottom: theme.spacing(6),
+  '&:last-child': {
+    marginBottom: 0
+  }
 }));
 
-const TestimonialText = styled(Typography)(({ theme }) => ({
-  fontStyle: "italic",
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(2),
+const QuoteIcon = styled(FormatQuoteIcon)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  opacity: 0.2,
+  fontSize: '2rem',
+  marginBottom: theme.spacing(2)
 }));
 
 const TestimonialSection: React.FC = () => {
@@ -39,25 +38,43 @@ const TestimonialSection: React.FC = () => {
   return (
     <Box
       sx={{
-        py: 8,
-        px: 4,
-        textAlign: "center",
+        py: { xs: 8, md: 12 },
+        backgroundColor: 'background.default',
       }}
     >
-      <h2 className="heading_4r">What Our Customers Say</h2>
-      <Grid container spacing={4} justifyContent="center">
+      <Container maxWidth="lg">
+        <Typography 
+          variant="h2"
+          sx={{
+            textAlign: 'center',
+            mb: 8,
+            fontSize: { xs: '2rem', md: '2.5rem' },
+            fontWeight: 500,
+          }}
+        >
+          What Our Customers Say
+        </Typography>
+        
         {testimonials.map((testimonial, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <TestimonialCard>
-              <CardContent>
-                <TestimonialText variant="body1">
-                  "{testimonial.text}"
-                </TestimonialText>
-              </CardContent>
-            </TestimonialCard>
-          </Grid>
+          <TestimonialContainer key={index}>
+            <QuoteIcon />
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                lineHeight: 1.8,
+                maxWidth: '800px',
+                margin: '0 auto',
+                color: 'text.primary',
+                textAlign: 'left',
+                pl: { xs: 0, md: 4 },
+              }}
+            >
+              {testimonial.text}
+            </Typography>
+          </TestimonialContainer>
         ))}
-      </Grid>
+      </Container>
     </Box>
   );
 };
