@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     const bedrooms = searchParams.get('bedrooms');
     const bathrooms = searchParams.get('bathrooms');
     const searchTerm = searchParams.get('searchTerm');
+    const limit = Number(searchParams.get('limit')) || undefined;
 
     // Build the where clause based on filters
     let where: any = {};
@@ -67,8 +68,8 @@ export async function GET(request: Request) {
       orderBy: {
         title: 'asc',
       },
+      take: limit,
     });
-
 
     // Ensure we're returning an array
     if (!Array.isArray(listings)) {
