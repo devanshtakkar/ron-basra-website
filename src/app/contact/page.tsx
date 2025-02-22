@@ -65,11 +65,11 @@ export default function Contact() {
                                 </p>
                             </Grid2>
                             <Grid2 size={{ xs: 12, md: 6 }}>
-                                <a href="mailto:ron@ronbasra.com" className={`${styles.contact_link} ${styles.zero_margin_n_padding}`}>
-                                    ron@ronbasra.com
+                                <a href="mailto:ronbasra@gmail.com" className={`${styles.contact_link} ${styles.zero_margin_n_padding}`}>
+                                    ronbasra@gmail.com
                                 </a>
-                                <a href="tel:+16047908080" className={`${styles.contact_link} ${styles.zero_margin_n_padding}`}>
-                                    (604) 790-8080
+                                <a href="tel:+16047309899" className={`${styles.contact_link} ${styles.zero_margin_n_padding}`}>
+                                    (604) 730-9899
                                 </a>
                             </Grid2>
                         </Grid2>
@@ -81,10 +81,10 @@ export default function Contact() {
                             </Grid2>
                             <Grid2 size={{ xs: 12, md: 6 }}>
                                 <p className={`${styles.zero_margin_n_padding}`}>
-                                    8686 152 Street
+                                    4806 Main St
                                 </p>
                                 <p className={`${styles.zero_margin_n_padding}`}>
-                                    Surrey, BC V3S 3R3
+                                    Vancouver, BC V5V 2R8
                                 </p>
                             </Grid2>
                         </Grid2>
