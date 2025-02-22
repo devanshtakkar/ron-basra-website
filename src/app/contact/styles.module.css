@@ -1,0 +1,18 @@
+.light_text {
+    color: rgb(57, 57, 53);
+}
+
+.zero_margin_n_padding {
+    margin: 0;
+    padding: 0;
+}
+
+.contact_link {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.contact_link:hover {
+    text-decoration: underline;
+}

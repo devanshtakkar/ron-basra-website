@@ -67,27 +67,28 @@ export default function DesktopNavbar() {
           alignItems="center"
           height="100%"
         >
-          <Box
-            sx={{
-              position: "relative",
-              width: "200px",
-              height: 60,
-            }}
-          >
-            <Link href="/">
-              <Image
-                src="/images/Ron Basra Logo Gold.png"
-                alt="Ron Basra"
-                fill
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            </Link>
-          </Box>
-
           <Stack direction="row" spacing={2} alignItems="center">
-            {menuItems.map((item) => (
+            <Box
+              sx={{
+                position: "relative",
+                width: "200px",
+                height: 60,
+                marginRight: 2
+              }}
+            >
+              <Link href="/">
+                <Image
+                  src="/images/Ron Basra Logo Gold.png"
+                  alt="Ron Basra"
+                  fill
+                  style={{
+                    objectFit: "contain",
+                  }}
+                />
+              </Link>
+            </Box>
+
+            {menuItems.filter(item => item.title !== "Contact").map((item) => (
               <Box key={item.title}>
                 {item.children ? (
                   <>
@@ -162,6 +163,25 @@ export default function DesktopNavbar() {
               </Box>
             ))}
           </Stack>
+
+          {/* Contact link on the right */}
+          <Link 
+            href="/contact"
+            style={{ 
+              textDecoration: 'none',
+              color: 'white'
+            }}
+          >
+            <Typography 
+              sx={{
+                '&:hover': {
+                  color: '#D4AF37'
+                }
+              }}
+            >
+              Contact
+            </Typography>
+          </Link>
         </Stack>
       </Container>
     </Box>

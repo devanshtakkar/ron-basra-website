@@ -31,6 +31,7 @@ export default function MobileNavbar() {
     { title: "Home", path: "/" },
     {
       title: "Properties",
+      id: "properties",
       children: [
         { title: "My Listings", path: "/properties/my-listings" },
         { title: "Office Listings", path: "/properties/office-listings" }
@@ -38,20 +39,19 @@ export default function MobileNavbar() {
     },
     {
       title: "Buying",
+      id: "buying",
       children: [
-        { title: "Buying Info", path: "/buying/info" },
+        { title: "Buying Info", path: "/buying" },
         { title: "Mortgage Calculator", path: "/buying/mortgage-calculator" },
-        { title: "Reports", path: "/buying/reports" }
+        { title: "Reports", path: "/reports" }
       ]
     },
     {
       title: "Selling",
-      children: [
-        { title: "Selling Info", path: "/selling/info" },
-        { title: "Reports", path: "/selling/reports" }
-      ]
+      id: "selling",
+      path: "/selling"
     },
-    { title: "Market Reports", path: "/market-reports" },
+    { title: "Market Reports", path: "/reports" },
     { title: "Blogs", path: "/blogs" },
     { title: "Contact", path: "/contact" }
   ];

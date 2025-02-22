@@ -43,3 +43,12 @@ body{
 .mono_font_link:hover {
   text-decoration: underline;
 }
+
+.breadcrumbs_link {
+  color: rgb(57, 57, 53);
+  text-decoration: none;
+}
+
+.breadcrumbs_link:hover {
+  text-decoration: underline;
+}
