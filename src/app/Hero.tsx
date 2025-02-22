@@ -9,7 +9,7 @@ export default function Hero() {
 
   return (
     <>
-      <div style={{ backgroundColor: "gray", minHeight: "100vh" }}>
+      <div style={{ backgroundColor: "gray", height: "90vh" }}>
         {isMobile && (
           <>
             <video

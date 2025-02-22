@@ -238,7 +238,9 @@ export default function NeighbourhoodMap({
                     <Tabs
                         value={value}
                         onChange={handleChange}
-                        centered
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        allowScrollButtonsMobile
                         aria-label="neighbourhood categories"
                     >
                         <Tab label="All" />
