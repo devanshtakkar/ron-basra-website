@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Container, 
   Typography, 
@@ -12,11 +12,11 @@ import {
   useMediaQuery,
   Grid,
   Paper,
-  styled
+  styled,
+  ButtonProps
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArticleIcon from '@mui/icons-material/Article';
-import '@/app/css/curved_button.css';
 import { Listing } from '../properties/my-listings/types/Listing';
 import ListingCard from '../properties/my-listings/ListingCard';
 
@@ -24,9 +24,28 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   marginBottom: theme.spacing(4),
   borderRadius: theme.spacing(2),
-  background: 'rgb(250, 250, 250)',
-  border: '1px solid rgb(242, 242, 242)',
-  boxShadow: 'none'
+  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+}));
+
+interface CurvedButtonProps extends ButtonProps {
+  component?: React.ElementType;
+  href?: string;
+  download?: boolean;
+}
+
+const CurvedButton = styled(Button)<CurvedButtonProps>(({ theme }) => ({
+  borderRadius: '50px',
+  padding: '10px 20px',
+  textTransform: 'none',
+  backgroundColor: '#fff',
+  color: theme.palette.text.primary,
+  border: '1px solid rgba(0, 0, 0, 0.2)',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+    border: '1px solid transparent',
+  },
 }));
 
 interface Report {
@@ -124,14 +143,12 @@ export default function ReportsPage() {
               <Grid item xs={12} key={report.name}>
                 <Card 
                   sx={{ 
-                    borderRadius: 2,
-                    border: '1px solid rgb(242, 242, 242)',
-                    background: 'rgb(250, 250, 250)',
-                    boxShadow: 'none',
-                    transition: 'all 0.3s ease',
+                    borderRadius: 4,
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
-                      background: 'white',
-                      borderColor: 'rgb(230, 230, 230)',
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
                     }
                   }}
                 >
@@ -139,9 +156,8 @@ export default function ReportsPage() {
                     <Box display="flex" alignItems="flex-start" gap={3}>
                       <ArticleIcon 
                         sx={{ 
-                          fontSize: 32,
-                          color: 'primary.main',
-                          opacity: 0.9
+                          fontSize: 40,
+                          color: 'primary.main'
                         }} 
                       />
                       <Box flex={1}>
@@ -150,35 +166,28 @@ export default function ReportsPage() {
                           gutterBottom 
                           sx={{ 
                             fontWeight: 500,
-                            mb: 2,
-                            fontSize: '1.25rem'
+                            mb: 2
                           }}
                         >
                           {report.name}
                         </Typography>
                         <Typography 
                           color="text.secondary" 
-                          sx={{ 
-                            mb: 3,
-                            fontSize: '0.95rem',
-                            lineHeight: 1.6
-                          }}
+                          sx={{ mb: 3 }}
                         >
                           {report.description}
                         </Typography>
-                        <Button
+                        <CurvedButton
+                          component="a"
                           href={report.url}
                           download
-                          className="btn_white"
                           endIcon={<ArrowForwardIcon />}
                           sx={{
-                            fontSize: '0.9rem',
-                            py: 1,
                             width: { xs: 'auto', md: '250px' }
                           }}
                         >
                           Get this report
-                        </Button>
+                        </CurvedButton>
                       </Box>
                     </Box>
                   </CardContent>
@@ -191,50 +200,34 @@ export default function ReportsPage() {
         <Grid item xs={12} md={4}>
           <Box sx={{ position: isMobile ? 'relative' : 'sticky', top: 24 }}>
             <StyledPaper>
-              <Typography variant="h5" gutterBottom sx={{ mb: 3, fontSize: '1.25rem', fontWeight: 500 }}>
+              <Typography variant="h5" gutterBottom color="primary" sx={{ mb: 3 }}>
                 Featured Listings
               </Typography>
-              <Grid container spacing={3}>
+              <Grid container spacing={2}>
                 {featuredListings.map((listing) => (
                   <Grid item xs={12} key={listing.id}>
-                    <Box sx={{ 
-                      background: 'white',
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      border: '1px solid rgb(242, 242, 242)',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        borderColor: 'rgb(230, 230, 230)',
-                      }
-                    }}>
-                      <ListingCard
-                        image={listing.photos[0]?.downloadUrl || '/images/placeholder.jpg'}
-                        title={listing.title}
-                        status={listing.mainSummary.status}
-                        href={`/properties/${listing.id}`}
-                        description={listing.description}
-                        propertyType={listing.mainSummary.propertyType}
-                        mls={listing.mainSummary.MLS}
-                        bedrooms={listing.mainSummary.bedrooms}
-                        bathrooms={listing.mainSummary.bathrooms}
-                        price={listing.price || 0}
-                      />
-                    </Box>
+                    <ListingCard
+                      image={listing.photos[0]?.downloadUrl || '/images/placeholder.jpg'}
+                      title={listing.title}
+                      status={listing.mainSummary.status}
+                      href={`/properties/${listing.id}`}
+                      description={listing.description}
+                      propertyType={listing.mainSummary.propertyType}
+                      mls={listing.mainSummary.MLS}
+                      bedrooms={listing.mainSummary.bedrooms}
+                      bathrooms={listing.mainSummary.bathrooms}
+                      price={listing.price || 0}
+                    />
                   </Grid>
                 ))}
               </Grid>
               <Box sx={{ mt: 4, textAlign: 'center' }}>
-                <Button
+                <CurvedButton
                   href="/properties/my-listings"
-                  className="btn_white"
                   endIcon={<ArrowForwardIcon />}
-                  sx={{
-                    fontSize: '0.9rem',
-                    py: 1
-                  }}
                 >
                   View All Listings
-                </Button>
+                </CurvedButton>
               </Box>
             </StyledPaper>
           </Box>

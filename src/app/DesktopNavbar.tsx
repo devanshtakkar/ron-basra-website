@@ -38,20 +38,17 @@ export default function DesktopNavbar() {
       title: "Buying",
       id: "buying",
       children: [
-        { title: "Buying Info", path: "/buying/info" },
+        { title: "Buying Info", path: "/buying" },
         { title: "Mortgage Calculator", path: "/buying/mortgage-calculator" },
-        { title: "Reports", path: "/buying/reports" }
+        { title: "Reports", path: "/reports" }
       ]
     },
     {
       title: "Selling",
       id: "selling",
-      children: [
-        { title: "Selling Info", path: "/selling/info" },
-        { title: "Reports", path: "/selling/reports" }
-      ]
+      path: "/selling"
     },
-    { title: "Market Reports", path: "/market-reports" },
+    { title: "Market Reports", path: "/reports" },
     { title: "Blogs", path: "/blogs" },
     { title: "Contact", path: "/contact" }
   ];
