@@ -3,6 +3,7 @@ import HomePageContent from "./HomePageContent";
 import FeaturedListings from "./FeaturedListings/FeaturedListings";
 import HomePageContent_2 from "./HomePageContent_2";
 import TestimonialSection from "./TestimonialSection";
+import InstagramEmbed from "./components/InstagramEmbed";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <FeaturedListings />
       <HomePageContent_2 />
       <TestimonialSection />
+      <InstagramEmbed />
     </>
   );
 }
