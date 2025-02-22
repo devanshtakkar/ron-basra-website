@@ -243,7 +243,7 @@ export default function MyListings() {
               }
               title={listing.title}
               status={listing.mainSummary.status}
-              href={`/properties/my-listings/${listing.id}`}
+              href={`/properties/${listing.id}`}
               description={listing.description}
               year_built={listing.mainSummary.yearBuilt?.toString()}
               lot_size={listing.generalInfo?.["Total area"]}

@@ -1,7 +1,11 @@
+"use client";
 import { Box, Container, Grid2, Typography } from "@mui/material";
 import Image from "next/image";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function HomePageContent() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   return (
     <>
       <Container maxWidth="xl">
@@ -11,15 +15,15 @@ export default function HomePageContent() {
               sx={{
                 position: "relative",
                 width: "100%",
-                minHeight: "80vh",
+                minHeight: { xs: "300px", md: "80vh" },
               }}
             >
               <Image
-                src="/images/ron.jpg"
+                src="/images/ron-n-tasha.png"
                 alt="Ron Basra"
                 fill
                 style={{
-                  objectFit: "cover",
+                  objectFit: isMobile ? "contain" : "cover",
                 }}
               />
             </Box>

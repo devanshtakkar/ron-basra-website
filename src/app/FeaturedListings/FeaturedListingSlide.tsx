@@ -23,6 +23,7 @@ export default function FeaturedListingSlide({
     bathrooms,
     background,
 }: FeaturedListingSlideProps) {
+    let splitTitle = title.split(":");
     return (
         <Box
             sx={{
@@ -69,7 +70,7 @@ export default function FeaturedListingSlide({
                     MLS® {mls}
                 </Typography>
                 <Typography sx={{ color: "white", fontSize: "1.2rem", fontWeight: "400", mb: 1 }}>
-                    {title}
+                    {splitTitle[0] + ":" + splitTitle[1]}
                 </Typography>
                 <Stack direction="row" spacing={2}>
                     <Stack direction="row" spacing={0.5} alignItems="center">
