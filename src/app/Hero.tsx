@@ -1,16 +1,39 @@
 "use client";
-import { Container, IconButton, Grid2, useMediaQuery } from "@mui/material";
+import { Container, IconButton, Grid2, useMediaQuery, Box } from "@mui/material";
 import styles from "./Hero.module.css";
 import MobileSelect from "./MobileSelect";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export default function Hero() {
-    const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   return (
     <>
       <div style={{ backgroundColor: "gray", minHeight: "100vh" }}>
-        <Container maxWidth="xl">
+        {isMobile && (
+          <>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              zIndex: 0,
+            }}
+          >
+              <source src="/videos/header-mobile.mp4" type="video/mp4" />
+            </video>
+          </>
+        )}
+
+        <Container maxWidth="xl" sx={{ position: "absolute", zIndex: 2, height: "100%", background: {
+          xs: "rgba(0, 0, 0, 0.4)",
+          md: "rgba(0, 0, 0, 0.0)",
+        } }}>
           <Grid2 container>
             <Grid2 size={{ xs: 12, md: 6 }}>
               <h1 className={styles.hero_heading}>
