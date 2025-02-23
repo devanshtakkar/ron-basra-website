@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css"; // Import Swiper styles
@@ -9,7 +9,6 @@ import { Grid2, useMediaQuery } from "@mui/material";
 import FeaturedListingSlide from "./FeaturedListingSlide";
 import "./lisitngButton.css";
 import { redirect, RedirectType } from "next/navigation";
-import listingsData from './listings.json';
 
 interface Listing {
     id: string;
@@ -36,7 +35,26 @@ interface Listing {
 export default function FeaturedSwiper({ isMobile }: { isMobile: boolean }) {
     const prevButtonRef = useRef(null);
     const nextButtonRef = useRef(null);
-    const { listings } = listingsData;
+    const [listings, setListings] = useState<Listing[]>([]);
+    console.log(listings);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams({
+            minPrice: "0",
+            maxPrice: "10000000",
+            propertyType: "all",
+            bedrooms: "all",
+            bathrooms: "all",
+            searchTerm: "",
+            page: "1",
+            limit: "9",
+        });
+
+        fetch(`/api/listings?${queryParams}`)
+            .then(response => response.json())
+            .then(data => setListings(data.listings))
+            .catch(error => console.error('Error fetching listings:', error));
+    }, []); // Empty dependency array means this runs once on mount
 
     return (
         <div>
