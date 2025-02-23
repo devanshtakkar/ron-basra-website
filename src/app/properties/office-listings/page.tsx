@@ -55,13 +55,13 @@ export default function MyListings() {
     params.set("propertyType", newFilters.propertyType);
     params.set("bedrooms", newFilters.bedrooms);
     params.set("bathrooms", newFilters.bathrooms);
-    params.set("category", "MY_LISTING");
+    params.set("category", "OFFICE_LISTING");
     if (newFilters.searchTerm) {
       params.set("searchTerm", newFilters.searchTerm);
     }
     
     // Update URL without refreshing the page
-    router.replace(`/properties/my-listings?${params.toString()}`);
+    router.replace(`/properties/office-listings?${params.toString()}`);
   };
 
   useEffect(() => {

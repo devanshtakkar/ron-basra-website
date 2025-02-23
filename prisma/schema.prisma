@@ -12,10 +12,11 @@ datasource db {
 
 model ListingUrl{
   id String @id @default(uuid())
-  url String @unique
+  url String
   lisitng Listing?
   createdAt DateTime @default(now())
   category Category
+  price Int
   @@unique([url, category])
 }
 
@@ -54,15 +55,16 @@ model Listing{
   url ListingUrl? @relation(fields: [urlId], references: [id])
   price Int?
   sold Boolean @default(false)
-  category Category
   openHouse Boolean @default(false)
   openHouseDate DateTime?
   createdAt DateTime @default(now())
+  old Boolean @default(false)
 }
 
 enum Category {
   MY_LISTING
   OFFICE_LISTING
+  BOTH
 }
 
 model Images{
@@ -71,6 +73,4 @@ model Images{
   savedPath String
   listingId String
   listing Listing @relation(fields: [listingId], references: [id])
-
-  @@unique([listingId, downloadUrl])
 }

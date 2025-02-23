@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { NextResponse } from "next/server";
+import { PrismaClient, Category } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -7,19 +7,39 @@ const prisma = new PrismaClient();
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    
-    const minPrice = Number(searchParams.get('minPrice')) || 0;
-    const maxPrice = Number(searchParams.get('maxPrice')) || 99999999;
-    const propertyType = searchParams.get('propertyType');
-    const bedrooms = searchParams.get('bedrooms');
-    const bathrooms = searchParams.get('bathrooms');
-    const searchTerm = searchParams.get('searchTerm');
-    const page = Number(searchParams.get('page')) || 1;
-    const limit = Number(searchParams.get('limit')) || 9;
+
+    const minPrice = Number(searchParams.get("minPrice")) || 0;
+    const maxPrice = Number(searchParams.get("maxPrice")) || 99999999;
+    const propertyType = searchParams.get("propertyType");
+    const bedrooms = searchParams.get("bedrooms");
+    const bathrooms = searchParams.get("bathrooms");
+    const searchTerm = searchParams.get("searchTerm");
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 9;
+    let category = searchParams.get("category");
     const skip = (page - 1) * limit;
 
-    // Build the where clause based on filters
+    if (category === "MY_LISTING") {
+      category = Category.MY_LISTING;
+    } else if (category === "OFFICE_LISTING") {
+      category = Category.OFFICE_LISTING;
+    } else {
+      category = Category.MY_LISTING;
+    }
+
     let where: any = {};
+    // Build the where clause based on filters
+    let categoryFilter = {
+      OR: [
+        {
+          category: {
+            in: [category, "BOTH" as Category],
+          }
+        },
+      ],
+    };
+
+    where.url = categoryFilter;
 
     // Price filter using the direct price field
     if (minPrice || maxPrice) {
@@ -30,120 +50,120 @@ export async function GET(request: Request) {
     }
 
     // Add property type filter if not 'all'
-    if (propertyType && propertyType !== 'all') {
+    if (propertyType && propertyType !== "all") {
       where.mainSummary = {
-        path: '$.propertyType',
+        path: "$.propertyType",
         string_contains: propertyType,
       };
     }
 
     // Add bedrooms filter if not 'all'
-    if (bedrooms && bedrooms !== 'all') {
-      if (bedrooms === '4plus') {
+    if (bedrooms && bedrooms !== "all") {
+      if (bedrooms === "4plus") {
         where.OR = [
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 4
-            }
+              path: "$.bedrooms",
+              equals: 4,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 5
-            }
+              path: "$.bedrooms",
+              equals: 5,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 6
-            }
+              path: "$.bedrooms",
+              equals: 6,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 7
-            }
+              path: "$.bedrooms",
+              equals: 7,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 8
-            }
+              path: "$.bedrooms",
+              equals: 8,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 9
-            }
+              path: "$.bedrooms",
+              equals: 9,
+            },
           },
           {
             mainSummary: {
-              path: '$.bedrooms',
-              equals: 10
-            }
-          }
+              path: "$.bedrooms",
+              equals: 10,
+            },
+          },
         ];
       } else {
         where.mainSummary = {
-          path: '$.bedrooms',
-          equals: parseInt(bedrooms)
+          path: "$.bedrooms",
+          equals: parseInt(bedrooms),
         };
       }
     }
 
     // Add bathrooms filter if not 'all'
-    if (bathrooms && bathrooms !== 'all') {
-      if (bathrooms === '5plus') {
+    if (bathrooms && bathrooms !== "all") {
+      if (bathrooms === "5plus") {
         const bathroomConditions = [
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 5
-            }
+              path: "$.bathrooms",
+              equals: 5,
+            },
           },
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 6
-            }
+              path: "$.bathrooms",
+              equals: 6,
+            },
           },
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 7
-            }
+              path: "$.bathrooms",
+              equals: 7,
+            },
           },
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 8
-            }
+              path: "$.bathrooms",
+              equals: 8,
+            },
           },
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 9
-            }
+              path: "$.bathrooms",
+              equals: 9,
+            },
           },
           {
             mainSummary: {
-              path: '$.bathrooms',
-              equals: 10
-            }
-          }
+              path: "$.bathrooms",
+              equals: 10,
+            },
+          },
         ];
 
         // If we already have conditions from bedrooms, combine them
         if (where.OR) {
           // Create a cross product of bedroom and bathroom conditions
-          const combinedConditions = where.OR.flatMap((bedroomCondition: { mainSummary: { path: string; equals: number } }) => 
-            bathroomConditions.map(bathroomCondition => ({
-              AND: [
-                bedroomCondition,
-                bathroomCondition
-              ]
-            }))
+          const combinedConditions = where.OR.flatMap(
+            (bedroomCondition: {
+              mainSummary: { path: string; equals: number };
+            }) =>
+              bathroomConditions.map((bathroomCondition) => ({
+                AND: [bedroomCondition, bathroomCondition],
+              }))
           );
           where.OR = combinedConditions;
         } else {
@@ -152,21 +172,23 @@ export async function GET(request: Request) {
       } else {
         if (where.OR) {
           // If we have bedroom conditions, we need to add bathroom condition to each
-          where.OR = where.OR.map((condition: { mainSummary: { path: string; equals: number } }) => ({
-            AND: [
-              condition,
-              {
-                mainSummary: {
-                  path: '$.bathrooms',
-                  equals: parseInt(bathrooms)
-                }
-              }
-            ]
-          }));
+          where.OR = where.OR.map(
+            (condition: { mainSummary: { path: string; equals: number } }) => ({
+              AND: [
+                condition,
+                {
+                  mainSummary: {
+                    path: "$.bathrooms",
+                    equals: parseInt(bathrooms),
+                  },
+                },
+              ],
+            })
+          );
         } else {
           where.mainSummary = {
-            path: '$.bathrooms',
-            equals: parseInt(bathrooms)
+            path: "$.bathrooms",
+            equals: parseInt(bathrooms),
           };
         }
       }
@@ -180,18 +202,30 @@ export async function GET(request: Request) {
       ];
     }
 
-    console.log('Query where clause:', JSON.stringify(where, null, 2));
+    console.log("Query where clause:", JSON.stringify(where, null, 2));
 
     // Get total count for pagination
-    const totalCount = await prisma.listing.count({ where });
+    const totalCount = await prisma.listingUrl.count({
+      where: {
+        OR: [
+          {
+            category: category as Category,
+          },
+          {
+            category: Category.BOTH,
+          },
+        ],
+      },
+    });
 
     const listings = await prisma.listing.findMany({
       where,
       include: {
         photos: true,
+        url: true,
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
       take: limit,
       skip: skip,
@@ -199,19 +233,25 @@ export async function GET(request: Request) {
 
     // Ensure we're returning an array
     if (!Array.isArray(listings)) {
-      console.error('Prisma returned non-array result:', listings);
-      return NextResponse.json({ listings: [], totalCount: 0 }, { status: 500 });
+      console.error("Prisma returned non-array result:", listings);
+      return NextResponse.json(
+        { listings: [], totalCount: 0 },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
       listings,
       totalCount,
       currentPage: page,
-      totalPages: Math.ceil(totalCount / limit)
+      totalPages: Math.ceil(totalCount / limit),
     });
   } catch (error) {
-    console.error('Error fetching listings:', error);
+    console.error("Error fetching listings:", error);
     // Always return an array, even in error cases
-    return NextResponse.json({ listings: [], totalCount: 0, currentPage: 1, totalPages: 0 }, { status: 500 });
+    return NextResponse.json(
+      { listings: [], totalCount: 0, currentPage: 1, totalPages: 0 },
+      { status: 500 }
+    );
   }
-} 
+}
