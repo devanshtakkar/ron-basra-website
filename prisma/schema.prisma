@@ -14,7 +14,9 @@ model ListingUrl{
   id String @id @default(uuid())
   url String @unique
   lisitng Listing?
-  createdAt DateTime?
+  createdAt DateTime @default(now())
+  category Category
+  @@unique([url, category])
 }
 
 model Room {
@@ -48,9 +50,19 @@ model Listing{
   bathrooms Bathroom[]
   listingDetails Json?
   wideInfo Json?
-  url ListingUrl @relation(fields: [urlId], references: [id])
-  urlId String @unique
+  urlId String? @unique
+  url ListingUrl? @relation(fields: [urlId], references: [id])
   price Int?
+  sold Boolean @default(false)
+  category Category
+  openHouse Boolean @default(false)
+  openHouseDate DateTime?
+  createdAt DateTime @default(now())
+}
+
+enum Category {
+  MY_LISTING
+  OFFICE_LISTING
 }
 
 model Images{

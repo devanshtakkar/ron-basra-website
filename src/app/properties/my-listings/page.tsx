@@ -15,30 +15,58 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Pagination,
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useTheme } from "@mui/material/styles";
 import ListingCard from "./ListingCard";
 import { Listing } from "./types/Listing";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function MyListings() {
   const theme = useTheme();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  // Initialize state from URL parameters
   const [listings, setListings] = useState<Listing[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get("page")) || 1
+  );
+  const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState({
-    minPrice: 0,
-    maxPrice: 10000000,
-    propertyType: "all",
-    bedrooms: "all",
-    bathrooms: "all",
-    searchTerm: "",
+    minPrice: Number(searchParams.get("minPrice")) || 0,
+    maxPrice: Number(searchParams.get("maxPrice")) || 10000000,
+    propertyType: searchParams.get("propertyType") || "all",
+    bedrooms: searchParams.get("bedrooms") || "all",
+    bathrooms: searchParams.get("bathrooms") || "all",
+    searchTerm: searchParams.get("searchTerm") || "",
   });
+
+  // Update URL when filters or pagination changes
+  const updateURL = (newFilters: typeof filters, page: number) => {
+    const params = new URLSearchParams();
+    params.set("page", page.toString());
+    params.set("minPrice", newFilters.minPrice.toString());
+    params.set("maxPrice", newFilters.maxPrice.toString());
+    params.set("propertyType", newFilters.propertyType);
+    params.set("bedrooms", newFilters.bedrooms);
+    params.set("bathrooms", newFilters.bathrooms);
+    if (newFilters.searchTerm) {
+      params.set("searchTerm", newFilters.searchTerm);
+    }
+    
+    // Update URL without refreshing the page
+    router.replace(`/properties/my-listings?${params.toString()}`);
+  };
 
   useEffect(() => {
     fetchListings();
-  }, [filters]);
+    updateURL(filters, currentPage);
+  }, [filters, currentPage]);
 
   const fetchListings = async () => {
     try {
@@ -51,6 +79,8 @@ export default function MyListings() {
         bedrooms: filters.bedrooms,
         bathrooms: filters.bathrooms,
         searchTerm: filters.searchTerm,
+        page: currentPage.toString(),
+        limit: "9",
       });
 
       const response = await fetch(`/api/listings?${queryParams}`);
@@ -60,13 +90,9 @@ export default function MyListings() {
         throw new Error(data.error || "Failed to fetch listings");
       }
 
-      // Ensure data is an array
-      if (!Array.isArray(data)) {
-        console.error("Received non-array data:", data);
-        throw new Error("Invalid data format received from server");
-      }
+      setListings(data.listings);
+      setTotalPages(data.totalPages);
 
-      setListings(data);
     } catch (error) {
       console.error("Error fetching listings:", error);
       setError(
@@ -81,10 +107,16 @@ export default function MyListings() {
   };
 
   const handleFilterChange = (field: string, value: string | number) => {
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       [field]: value,
-    }));
+    };
+    setCurrentPage(1);
+    setFilters(newFilters);
+  };
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -238,9 +270,7 @@ export default function MyListings() {
         {listings.map((listing) => (
           <Grid key={listing.id} size={{ xs: 12, md: 4 }}>
             <ListingCard
-              image={
-                listing.photos[0]?.downloadUrl || "/images/placeholder.jpg"
-              }
+              image={listing.photos[0]?.downloadUrl || "/images/placeholder.jpg"}
               title={listing.title}
               status={listing.mainSummary.status}
               href={`/properties/${listing.id}`}
@@ -256,6 +286,19 @@ export default function MyListings() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Pagination */}
+      {!loading && !error && listings.length > 0 && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, mb: 4 }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            size="large"
+          />
+        </Box>
+      )}
     </Container>
   );
 }

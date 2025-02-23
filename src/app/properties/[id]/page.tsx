@@ -15,6 +15,7 @@ async function getListing(id: string) {
         photos: true,
         rooms: true,
         bathrooms: true,
+        url: true,
       },
     });
 
