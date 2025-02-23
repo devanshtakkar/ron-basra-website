@@ -26,8 +26,8 @@ import {
   ArcElement,
 } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
-import { Listing } from '../../properties/my-listings/types/Listing';
-import ListingCard from '../../properties/my-listings/ListingCard';
+import { Listing } from '../../properties/types/Listing';
+import ListingCard from '../../properties/ListingCard';
 
 // Register ChartJS components
 ChartJS.register(

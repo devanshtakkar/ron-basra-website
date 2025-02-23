@@ -19,8 +19,8 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useTheme } from "@mui/material/styles";
-import ListingCard from "./ListingCard";
-import { Listing } from "./types/Listing";
+import ListingCard from "../ListingCard";
+import { Listing } from "../types/Listing";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -199,6 +199,7 @@ export default function MyListings() {
                     <MenuItem value="2">2</MenuItem>
                     <MenuItem value="3">3</MenuItem>
                     <MenuItem value="4">4</MenuItem>
+                    <MenuItem value="4plus">4+</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -216,6 +217,7 @@ export default function MyListings() {
                     <MenuItem value="3">3</MenuItem>
                     <MenuItem value="4">4</MenuItem>
                     <MenuItem value="5">5</MenuItem>
+                    <MenuItem value="5plus">5+</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

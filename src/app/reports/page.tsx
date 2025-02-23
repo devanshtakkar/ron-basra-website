@@ -15,8 +15,8 @@ import {
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArticleIcon from '@mui/icons-material/Article';
-import { Listing } from '../properties/my-listings/types/Listing';
-import ListingCard from '../properties/my-listings/ListingCard';
+import { Listing } from '../properties/types/Listing';
+import ListingCard from '../properties/ListingCard';
 import CurvedButton from '../components/CurvedButton';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({

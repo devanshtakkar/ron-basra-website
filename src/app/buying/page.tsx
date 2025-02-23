@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
-import { Listing } from "../properties/my-listings/types/Listing";
-import ListingCard from "../properties/my-listings/ListingCard";
+import { Listing } from "../properties/types/Listing";
+import ListingCard from "../properties/ListingCard";
 import CurvedButton from "../components/CurvedButton";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Link from "next/link";

@@ -1,7 +1,7 @@
 import { Container, Alert } from "@mui/material";
 import { PrismaClient } from "@prisma/client";
 import ListingDisplay from "./ListingDisplay";
-import { Listing } from "../my-listings/types/Listing";
+import { Listing } from "../types/Listing";
 
 const prisma = new PrismaClient();
 

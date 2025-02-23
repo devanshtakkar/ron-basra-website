@@ -3,7 +3,7 @@
 import { Container, Typography, Breadcrumbs, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Link from "next/link";
-import { Listing } from "../my-listings/types/Listing";
+import { Listing } from "../types/Listing";
 import ImageGallery from "./ImageGallery";
 import "@/app/css/curved_button.css";
 import BedIcon from "@mui/icons-material/Bed";

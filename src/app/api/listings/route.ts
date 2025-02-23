@@ -39,18 +39,137 @@ export async function GET(request: Request) {
 
     // Add bedrooms filter if not 'all'
     if (bedrooms && bedrooms !== 'all') {
-      where.mainSummary = {
-        path: '$.bedrooms',
-        equals: parseInt(bedrooms),
-      };
+      if (bedrooms === '4plus') {
+        where.OR = [
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 4
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 5
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 6
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 7
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 8
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 9
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bedrooms',
+              equals: 10
+            }
+          }
+        ];
+      } else {
+        where.mainSummary = {
+          path: '$.bedrooms',
+          equals: parseInt(bedrooms)
+        };
+      }
     }
 
     // Add bathrooms filter if not 'all'
     if (bathrooms && bathrooms !== 'all') {
-      where.mainSummary = {
-        path: '$.bathrooms',
-        equals: parseInt(bathrooms),
-      };
+      if (bathrooms === '5plus') {
+        const bathroomConditions = [
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 5
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 6
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 7
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 8
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 9
+            }
+          },
+          {
+            mainSummary: {
+              path: '$.bathrooms',
+              equals: 10
+            }
+          }
+        ];
+
+        // If we already have conditions from bedrooms, combine them
+        if (where.OR) {
+          // Create a cross product of bedroom and bathroom conditions
+          const combinedConditions = where.OR.flatMap((bedroomCondition: { mainSummary: { path: string; equals: number } }) => 
+            bathroomConditions.map(bathroomCondition => ({
+              AND: [
+                bedroomCondition,
+                bathroomCondition
+              ]
+            }))
+          );
+          where.OR = combinedConditions;
+        } else {
+          where.OR = bathroomConditions;
+        }
+      } else {
+        if (where.OR) {
+          // If we have bedroom conditions, we need to add bathroom condition to each
+          where.OR = where.OR.map((condition: { mainSummary: { path: string; equals: number } }) => ({
+            AND: [
+              condition,
+              {
+                mainSummary: {
+                  path: '$.bathrooms',
+                  equals: parseInt(bathrooms)
+                }
+              }
+            ]
+          }));
+        } else {
+          where.mainSummary = {
+            path: '$.bathrooms',
+            equals: parseInt(bathrooms)
+          };
+        }
+      }
     }
 
     // Add search term filter
